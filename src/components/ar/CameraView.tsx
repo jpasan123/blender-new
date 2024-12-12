@@ -53,11 +53,11 @@ export const CameraView: React.FC<CameraViewProps> = ({ children, onError }) => 
         style={{
           transform: 'scaleX(-1)',
           WebkitTransform: 'scaleX(-1)',
-          zIndex: 10
+          zIndex: -1 // Place video behind the AR content
         }}
       />
       {isCameraReady && (
-        <div className="absolute inset-0 z-20">
+        <div className="absolute inset-0" style={{ zIndex: 1 }}>
           {children}
         </div>
       )}

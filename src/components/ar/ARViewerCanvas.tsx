@@ -1,11 +1,14 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
+import { isMobile } from '../../utils/deviceDetection';
 
 interface ARViewerCanvasProps {
   children: React.ReactNode;
 }
 
 export const ARViewerCanvas: React.FC<ARViewerCanvasProps> = ({ children }) => {
+  const isMobileDevice = isMobile();
+
   return (
     <Canvas
       style={{ 
@@ -18,11 +21,12 @@ export const ARViewerCanvas: React.FC<ARViewerCanvasProps> = ({ children }) => {
         touchAction: 'none',
         WebkitTouchCallout: 'none',
         WebkitUserSelect: 'none',
-        userSelect: 'none'
+        userSelect: 'none',
+        zIndex: 2 // Ensure Canvas is above video but below UI elements
       }}
       camera={{ 
-        position: [0, 0, 5],
-        fov: 85,
+        position: [0, 0, isMobileDevice ? 3 : 5], // Adjust camera position for mobile
+        fov: isMobileDevice ? 75 : 85, // Adjust field of view for mobile
         near: 0.1,
         far: 1000
       }}
