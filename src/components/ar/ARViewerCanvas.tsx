@@ -1,6 +1,5 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { CANVAS_SETTINGS } from '../../config/arSettings';
 
 interface ARViewerCanvasProps {
   children: React.ReactNode;
@@ -9,9 +8,31 @@ interface ARViewerCanvasProps {
 export const ARViewerCanvas: React.FC<ARViewerCanvasProps> = ({ children }) => {
   return (
     <Canvas
-      style={CANVAS_SETTINGS.style}
-      camera={CANVAS_SETTINGS.camera}
-      gl={CANVAS_SETTINGS.gl}
+      style={{ 
+        position: 'absolute', 
+        top: '50%', 
+        left: '50%',
+        width: '100%', 
+        height: '100%',
+        transform: 'translate(-50%, -50%)',
+        touchAction: 'none',
+        WebkitTouchCallout: 'none',
+        WebkitUserSelect: 'none',
+        userSelect: 'none'
+      }}
+      camera={{ 
+        position: [0, 0, 5],
+        fov: 85,
+        near: 0.1,
+        far: 1000
+      }}
+      gl={{ 
+        antialias: true,
+        alpha: true,
+        preserveDrawingBuffer: true,
+        powerPreference: 'high-performance',
+        logarithmicDepthBuffer: true
+      }}
       shadows
       dpr={[1, 2]}
       performance={{ min: 0.5 }}

@@ -6,6 +6,7 @@ import { useARModelLoader } from '../hooks/useARModelLoader';
 import { ARViewerCanvas } from './ar/ARViewerCanvas';
 import { ARLoadingOverlay } from './ar/ARLoadingOverlay';
 import { ARErrorMessage } from './ar/ARErrorMessage';
+import { CameraView } from './ar/CameraView';
 
 const ARModelViewer: React.FC = () => {
   const {
@@ -20,17 +21,19 @@ const ARModelViewer: React.FC = () => {
   });
 
   return (
-    <div className="absolute inset-0 z-10 pointer-events-auto touch-none select-none">
-      <ErrorBoundary onError={handleError}>
-        <Suspense fallback={<LoadingScreen />}>
-          <ARViewerCanvas>
-            <Scene onLoaded={handleModelLoad} onError={handleError} />
-          </ARViewerCanvas>
-        </Suspense>
-      </ErrorBoundary>
+    <div className="relative w-full h-full">
+      <CameraView onError={handleError}>
+        <ErrorBoundary onError={handleError}>
+          <Suspense fallback={<LoadingScreen />}>
+            <ARViewerCanvas>
+              <Scene onLoaded={handleModelLoad} onError={handleError} />
+            </ARViewerCanvas>
+          </Suspense>
+        </ErrorBoundary>
 
-      {error && <ARErrorMessage message={error} />}
-      {isLoading && !isModelLoaded && !error && <ARLoadingOverlay />}
+        {error && <ARErrorMessage message={error} />}
+        {isLoading && !isModelLoaded && !error && <ARLoadingOverlay />}
+      </CameraView>
     </div>
   );
 };

@@ -9,7 +9,8 @@ export const CANVAS_SETTINGS = {
     touchAction: 'none',
     WebkitTouchCallout: 'none',
     WebkitUserSelect: 'none',
-    userSelect: 'none'
+    userSelect: 'none',
+    zIndex: 20
   },
   camera: {
     position: [0, 0, 5],
